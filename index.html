@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javier Sierra Peluquería | Zaragoza</title>
+    <!-- Tailwind CSS para los estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons para los iconos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- React y Babel para ejecutar JSX en el navegador -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- COMPONENTES DE ICONOS (Simulando Lucide en React) ---
+        const Icon = ({ name, size = 24, className = "" }) => {
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
+
+        // --- CONTENIDO LEGAL ---
+        const avisoLegalContent = (
+            <div className="space-y-4">
+                <p><strong>Última actualización:</strong> 25 de Marzo de 2026</p>
+                <h3 className="text-xl font-bold">1. Datos Identificativos</h3>
+                <p>Titular: Javier Sierra Peluquería. Domicilio: C. de Luis López Allué, 17, 50005 Zaragoza.</p>
+                <h3 className="text-xl font-bold">2. Propiedad Intelectual</h3>
+                <p>Todos los contenidos de este sitio son propiedad de Javier Sierra Peluquería.</p>
+            </div>
+        );
+
+        const privacidadContent = (
+            <div className="space-y-4">
+                <p><strong>Última actualización:</strong> 25 de Marzo de 2026</p>
+                <h3 className="text-xl font-bold">1. Tratamiento de Datos</h3>
+                <p>Sus datos serán tratados para la gestión de citas y comunicaciones comerciales bajo su consentimiento.</p>
+            </div>
+        );
+
+        const cookiesContent = (
+            <div className="space-y-4">
+                <p><strong>Última actualización:</strong> 25 de Marzo de 2026</p>
+                <p>Este sitio utiliza cookies técnicas y de análisis para mejorar la experiencia del usuario.</p>
+            </div>
+        );
+
+        // --- COMPONENTE PRINCIPAL ---
+        function App() {
+            const [currentView, setCurrentView] = useState('home');
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            useEffect(() => {
+                // Inicializa los iconos de Lucide cada vez que cambia la vista
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [currentView, isMobileMenuOpen]);
+
+            const navigateTo = (view, sectionId = null) => {
+                setCurrentView(view);
+                setIsMobileMenuOpen(false);
+                if (sectionId) {
+                    setTimeout(() => {
+                        const element = document.getElementById(sectionId);
+                        if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-neutral-50 flex flex-col">
+                    {/* NAVBAR */}
+                    <header className="bg-white shadow-sm sticky top-0 z-50">
+                        <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+                            <div className="flex items-center cursor-pointer" onClick={() => navigateTo('home')}>
+                                <div className="bg-black text-white p-2 rounded-lg"><Icon name="scissors" /></div>
+                                <span className="ml-3 text-xl font-bold uppercase tracking-tight">Javier Sierra</span>
+                            </div>
+                            <nav className="hidden md:flex space-x-8 font-medium text-neutral-600">
+                                <button onClick={() => navigateTo('home')} className="hover:text-black">Inicio</button>
+                                <button onClick={() => navigateTo('home', 'servicios')} className="hover:text-black">Servicios</button>
+                                <button onClick={() => navigateTo('home', 'resenas')} className="hover:text-black">Reseñas</button>
+                                <button onClick={() => navigateTo('home', 'contacto')} className="hover:text-black">Contacto</button>
+                            </nav>
+                            <div className="md:hidden">
+                                <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                    <Icon name={isMobileMenuOpen ? "x" : "menu"} />
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* VISTAS */}
+                    <main className="flex-grow">
+                        {currentView === 'home' ? (
+                            <div className="animate-fade-in">
+                                {/* HERO */}
+                                <section className="relative bg-neutral-900 text-white py-32 px-4 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30" alt="Hero" />
+                                    <div className="relative max-w-7xl mx-auto">
+                                        <h1 className="text-5xl font-bold mb-6">Tu estilo, nuestra pasión en Zaragoza.</h1>
+                                        <p className="text-xl text-neutral-300 max-w-xl mb-8">Especialistas en cortes modernos y tradicionales. Visítanos en C. de Luis López Allué, 17.</p>
+                                        <div className="flex gap-4">
+                                            <a href="tel:976567092" className="bg-white text-black px-8 py-3 rounded-full font-bold flex items-center shadow-lg"><Icon name="phone" className="mr-2" size={18}/> Llamar Ahora</a>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {/* VALORACIONES */}
+                                <section id="resenas" className="py-12 bg-white border-b">
+                                    <div className="max-w-7xl mx-auto px-4 text-center">
+                                        <div className="flex justify-center text-yellow-400 mb-2">
+                                            {[...Array(5)].map((_, i) => <Icon key={i} name="star" size={24} className="fill-current"/>)}
+                                        </div>
+                                        <p className="text-2xl font-bold">4.8 estrellas en Google</p>
+                                        <p className="text-neutral-500">Basado en 201 reseñas de clientes reales.</p>
+                                    </div>
+                                </section>
+
+                                {/* SERVICIOS */}
+                                <section id="servicios" className="py-20 px-4">
+                                    <div className="max-w-7xl mx-auto">
+                                        <h2 className="text-3xl font-bold text-center mb-12">Nuestros Servicios</h2>
+                                        <div className="grid md:grid-cols-3 gap-8 text-center">
+                                            <div className="bg-white p-8 rounded-2xl shadow-sm border">
+                                                <Icon name="scissors" className="mx-auto mb-4 text-neutral-400" size={40}/>
+                                                <h3 className="text-xl font-bold mb-2">Corte y Peinado</h3>
+                                                <p className="text-neutral-500">Asesoramiento de imagen personalizado para cada cliente.</p>
+                                            </div>
+                                            <div className="bg-white p-8 rounded-2xl shadow-sm border">
+                                                <Icon name="palette" className="mx-auto mb-4 text-neutral-400" size={40}/>
+                                                <h3 className="text-xl font-bold mb-2">Coloración</h3>
+                                                <p className="text-neutral-500">Técnicas avanzadas de Balayage y Babylights.</p>
+                                            </div>
+                                            <div className="bg-white p-8 rounded-2xl shadow-sm border">
+                                                <Icon name="zap" className="mx-auto mb-4 text-neutral-400" size={40}/>
+                                                <h3 className="text-xl font-bold mb-2">Tratamientos</h3>
+                                                <p className="text-neutral-500">Hidratación profunda y reparación capilar.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {/* CONTACTO */}
+                                <section id="contacto" className="py-20 bg-white px-4 border-t">
+                                    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                                        <div className="space-y-6">
+                                            <h2 className="text-3xl font-bold">Ven a visitarnos</h2>
+                                            <div className="flex items-start gap-4">
+                                                <Icon name="map-pin" className="text-neutral-400 mt-1" />
+                                                <div>
+                                                    <p className="font-bold">Dirección</p>
+                                                    <p className="text-neutral-600">C. de Luis López Allué, 17, 50005 Zaragoza</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-4">
+                                                <Icon name="phone" className="text-neutral-400 mt-1" />
+                                                <div>
+                                                    <p className="font-bold">Teléfono</p>
+                                                    <p className="text-neutral-600">976 56 70 92</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-4">
+                                                <Icon name="clock" className="text-neutral-400 mt-1" />
+                                                <div>
+                                                    <p className="font-bold">Horario</p>
+                                                    <p className="text-neutral-600">Abierto hasta 13:30, reabre a las 16:00</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="h-64 bg-neutral-200 rounded-3xl overflow-hidden flex items-center justify-center text-neutral-500 border italic">
+                                            [Mapa de Zaragoza - Luis López Allué 17]
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        ) : (
+                            <div className="py-20 px-4 max-w-4xl mx-auto animate-fade-in">
+                                <h1 className="text-4xl font-bold mb-8 border-b pb-4">
+                                    {currentView === 'aviso-legal' && "Aviso Legal"}
+                                    {currentView === 'privacidad' && "Política de Privacidad"}
+                                    {currentView === 'cookies' && "Política de Cookies"}
+                                </h1>
+                                <div className="text-neutral-600 leading-relaxed">
+                                    {currentView === 'aviso-legal' && avisoLegalContent}
+                                    {currentView === 'privacidad' && privacidadContent}
+                                    {currentView === 'cookies' && cookiesContent}
+                                </div>
+                                <button onClick={() => navigateTo('home')} className="mt-12 text-black font-bold flex items-center gap-2">
+                                    <Icon name="arrow-left" size={18} /> Volver al Inicio
+                                </button>
+                            </div>
+                        )}
+                    </main>
+
+                    {/* FOOTER */}
+                    <footer className="bg-black text-white py-12 px-4 border-t border-neutral-800">
+                        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">Javier Sierra</h3>
+                                <p className="text-neutral-400">Peluquería profesional en Zaragoza.</p>
+                            </div>
+                            <div>
+                                <h4 className="font-bold mb-4 text-neutral-300">Navegación</h4>
+                                <ul className="space-y-2 text-neutral-400">
+                                    <li><button onClick={() => navigateTo('home')} className="hover:text-white">Inicio</button></li>
+                                    <li><button onClick={() => navigateTo('home', 'servicios')} className="hover:text-white">Servicios</button></li>
+                                    <li><button onClick={() => navigateTo('home', 'contacto')} className="hover:text-white">Contacto</button></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold mb-4 text-neutral-300">Legal</h4>
+                                <ul className="space-y-2 text-neutral-400">
+                                    <li><button onClick={() => navigateTo('aviso-legal')} className="hover:text-white">Aviso Legal</button></li>
+                                    <li><button onClick={() => navigateTo('privacidad')} className="hover:text-white">Privacidad</button></li>
+                                    <li><button onClick={() => navigateTo('cookies')} className="hover:text-white">Cookies</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-neutral-800 text-center text-neutral-500 text-sm">
+                            © 2026 Javier Sierra Peluquería. Todos los derechos reservados.
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
