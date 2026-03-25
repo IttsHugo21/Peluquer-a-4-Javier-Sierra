@@ -90,18 +90,33 @@
                                 <div className="bg-black text-white p-2 rounded-lg"><Icon name="scissors" /></div>
                                 <span className="ml-3 text-xl font-bold uppercase tracking-tight">Javier Sierra</span>
                             </div>
+                            
+                            {/* Desktop Nav */}
                             <nav className="hidden md:flex space-x-8 font-medium text-neutral-600">
-                                <button onClick={() => navigateTo('home')} className="hover:text-black">Inicio</button>
-                                <button onClick={() => navigateTo('home', 'servicios')} className="hover:text-black">Servicios</button>
-                                <button onClick={() => navigateTo('home', 'resenas')} className="hover:text-black">Reseñas</button>
-                                <button onClick={() => navigateTo('home', 'contacto')} className="hover:text-black">Contacto</button>
+                                <button onClick={() => navigateTo('home')} className="hover:text-black transition-colors">Inicio</button>
+                                <button onClick={() => navigateTo('home', 'servicios')} className="hover:text-black transition-colors">Servicios</button>
+                                <button onClick={() => navigateTo('home', 'resenas')} className="hover:text-black transition-colors">Reseñas</button>
+                                <button onClick={() => navigateTo('home', 'contacto')} className="hover:text-black transition-colors">Contacto</button>
                             </nav>
+
                             <div className="md:hidden">
-                                <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2">
                                     <Icon name={isMobileMenuOpen ? "x" : "menu"} />
                                 </button>
                             </div>
                         </div>
+
+                        {/* Mobile Nav Menu */}
+                        {isMobileMenuOpen && (
+                            <div className="md:hidden bg-white border-t border-neutral-100 absolute w-full shadow-xl">
+                                <div className="px-4 py-6 space-y-4">
+                                    <button onClick={() => navigateTo('home')} className="block w-full text-left text-lg font-medium text-neutral-800">Inicio</button>
+                                    <button onClick={() => navigateTo('home', 'servicios')} className="block w-full text-left text-lg font-medium text-neutral-800">Servicios</button>
+                                    <button onClick={() => navigateTo('home', 'resenas')} className="block w-full text-left text-lg font-medium text-neutral-800">Reseñas</button>
+                                    <button onClick={() => navigateTo('home', 'contacto')} className="block w-full text-left text-lg font-medium text-neutral-800">Contacto</button>
+                                </div>
+                            </div>
+                        )}
                     </header>
 
                     {/* VISTAS */}
@@ -110,12 +125,14 @@
                             <div className="animate-fade-in">
                                 {/* HERO */}
                                 <section className="relative bg-neutral-900 text-white py-32 px-4 overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30" alt="Hero" />
+                                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80" className="absolute inset-0 w-full h-full object-cover opacity-30" alt="Peluquería Interior" />
                                     <div className="relative max-w-7xl mx-auto">
                                         <h1 className="text-5xl font-bold mb-6">Tu estilo, nuestra pasión en Zaragoza.</h1>
                                         <p className="text-xl text-neutral-300 max-w-xl mb-8">Especialistas en cortes modernos y tradicionales. Visítanos en C. de Luis López Allué, 17.</p>
                                         <div className="flex gap-4">
-                                            <a href="tel:976567092" className="bg-white text-black px-8 py-3 rounded-full font-bold flex items-center shadow-lg"><Icon name="phone" className="mr-2" size={18}/> Llamar Ahora</a>
+                                            <a href="tel:976567092" className="bg-white text-black px-8 py-3 rounded-full font-bold flex items-center shadow-lg hover:bg-neutral-100 transition-colors">
+                                                <Icon name="phone" className="mr-2" size={18}/> Llamar Ahora
+                                            </a>
                                         </div>
                                     </div>
                                 </section>
@@ -178,19 +195,21 @@
                                                 <Icon name="clock" className="text-neutral-400 mt-1" />
                                                 <div>
                                                     <p className="font-bold">Horario</p>
-                                                    <p className="text-neutral-600">Abierto hasta 13:30, reabre a las 16:00</p>
+                                                    <p className="text-neutral-600">Lunes a Viernes: 09:30–13:30, 16:00–20:00<br/>Sábados: 09:00–14:00</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="h-80 rounded-3xl overflow-hidden shadow-md border border-neutral-200">
+                                        
+                                        {/* MAPA INTERACTIVO CORREGIDO */}
+                                        <div className="h-96 rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 relative bg-neutral-100">
                                             <iframe 
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.5303708221443!2d-0.9023447234676147!3d41.644243571268685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5914c62c953535%3A0x67396a8492025816!2sC.%20de%20Luis%20L%C3%B3pez%20Allu%C3%A9%2C%2017%2C%2050005%20Zaragoza!5e0!3m2!1ses!2ses!4v1711365000000!5m2!1ses!2ses" 
+                                                title="Ubicación Javier Sierra Peluquería"
+                                                src="https://maps.google.com/maps?q=C.%20de%20Luis%20L%C3%B3pez%20Allu%C3%A9%2C%2017%2C%2050005%20Zaragoza&t=&z=16&ie=UTF8&iwloc=&output=embed"
                                                 width="100%" 
                                                 height="100%" 
                                                 style={{ border: 0 }} 
                                                 allowFullScreen="" 
-                                                loading="lazy" 
-                                                referrerPolicy="no-referrer-when-downgrade">
+                                                loading="lazy">
                                             </iframe>
                                         </div>
                                     </div>
@@ -208,7 +227,7 @@
                                     {currentView === 'privacidad' && privacidadContent}
                                     {currentView === 'cookies' && cookiesContent}
                                 </div>
-                                <button onClick={() => navigateTo('home')} className="mt-12 text-black font-bold flex items-center gap-2">
+                                <button onClick={() => navigateTo('home')} className="mt-12 text-black font-bold flex items-center gap-2 hover:underline">
                                     <Icon name="arrow-left" size={18} /> Volver al Inicio
                                 </button>
                             </div>
@@ -220,22 +239,22 @@
                         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
                             <div>
                                 <h3 className="text-xl font-bold mb-4">Javier Sierra</h3>
-                                <p className="text-neutral-400">Peluquería profesional en Zaragoza.</p>
+                                <p className="text-neutral-400">Peluquería profesional en Zaragoza con más de 20 años de experiencia.</p>
                             </div>
                             <div>
                                 <h4 className="font-bold mb-4 text-neutral-300">Navegación</h4>
                                 <ul className="space-y-2 text-neutral-400">
-                                    <li><button onClick={() => navigateTo('home')} className="hover:text-white">Inicio</button></li>
-                                    <li><button onClick={() => navigateTo('home', 'servicios')} className="hover:text-white">Servicios</button></li>
-                                    <li><button onClick={() => navigateTo('home', 'contacto')} className="hover:text-white">Contacto</button></li>
+                                    <li><button onClick={() => navigateTo('home')} className="hover:text-white transition-colors">Inicio</button></li>
+                                    <li><button onClick={() => navigateTo('home', 'servicios')} className="hover:text-white transition-colors">Servicios</button></li>
+                                    <li><button onClick={() => navigateTo('home', 'contacto')} className="hover:text-white transition-colors">Contacto</button></li>
                                 </ul>
                             </div>
                             <div>
                                 <h4 className="font-bold mb-4 text-neutral-300">Legal</h4>
                                 <ul className="space-y-2 text-neutral-400">
-                                    <li><button onClick={() => navigateTo('aviso-legal')} className="hover:text-white">Aviso Legal</button></li>
-                                    <li><button onClick={() => navigateTo('privacidad')} className="hover:text-white">Privacidad</button></li>
-                                    <li><button onClick={() => navigateTo('cookies')} className="hover:text-white">Cookies</button></li>
+                                    <li><button onClick={() => navigateTo('aviso-legal')} className="hover:text-white transition-colors">Aviso Legal</button></li>
+                                    <li><button onClick={() => navigateTo('privacidad')} className="hover:text-white transition-colors">Privacidad</button></li>
+                                    <li><button onClick={() => navigateTo('cookies')} className="hover:text-white transition-colors">Cookies</button></li>
                                 </ul>
                             </div>
                         </div>
